@@ -8,6 +8,12 @@ ARCH=$(uname -m)
 QUERY=false
 REPOS=()
 PROFILEDIR="/home/aaditya/manjaro-tools-iso-profiles"
+TOOLSDIR="/home/aaditya/mtools"
+
+# Source config
+if [ -f "${HOME}/.config/mtools.conf" ]; then
+	source "${HOME}/.config/mtools.conf"
+fi
 
 # Check for root
 if [[ $EUID -ne 0 ]]; then
@@ -16,8 +22,8 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Source for pre and post_install tasks
-source /home/aaditya/mtools/pre-install || exit 1
-source /home/aaditya/mtools/post-install || exit 1
+source "${TOOLSDIR}/pre-install" || exit 1
+source "${TOOLSDIR}/post-install" || exit 1
 
 # Colors
 BOLD="\e[1m"

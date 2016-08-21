@@ -2,8 +2,8 @@
 
 pre_install() {
 	# Remove intel-ucode from Packages
-	sed -e '/intel-ucode/ d' -i "${PROFILEDIR}/shared/Packages" || exit 1
-	echo "intel-ucode removed from Packages."
+	sed -e '/intel-ucode/ d' -i "${PROFILEDIR}/shared/Packages-Root" || exit 1
+	echo "intel-ucode removed from Packages-Root."
 
 	# Adding Xfer command for build pacman.conf
 	cp /usr/share/manjaro-tools/pacman-default.conf "${PROFILEDIR}/${COMMUNITY_PROFILE}/pacman-default.conf" || exit 1
