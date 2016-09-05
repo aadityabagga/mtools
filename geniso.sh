@@ -53,7 +53,7 @@ fi
 
 # Build the profile chroot
 if [[ $@ != *-sc* ]] && [[ ! $QUERY = true ]]; then
-	buildiso "$@" -i
+	buildiso "$@" -x
 fi
 
 # Post install
@@ -93,4 +93,4 @@ if [[ ! $QUERY = true ]]; then
 fi
 
 # Build iso
-buildiso "$@" -sc
+buildiso "$@" -cz
