@@ -5,6 +5,20 @@ pre_install() {
 	sed -e '/intel-ucode/ d' -i "${PROFILEDIR}/shared/Packages-Root" || exit 1
 	echo "intel-ucode removed from Packages-Root."
 
+	# Remove opencl-mesa from Packages-Mhwd
+	sed -e '/opencl-mesa/ d' -i "${PROFILEDIR}/shared/Packages-Mhwd" || exit 1
+	echo "opencl-mesa removed from Packages-Mhwd."
+
+	# Add files required in live-overlay
+	# Copying desktop files
+	mkdir -p "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel"
+	cp -pr "${TOOLSDIR}/files/Desktop" "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/" || exit 1
+	echo "Desktop files copied to live-overlay."
+	# Copying gparted.desktop
+	install -Dm 755 /usr/share/applications/gparted.desktop "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop/gparted.desktop" || exit 1
+	sed 's|/usr/bin/gparted_polkit %f|gksudo gparted|g' -i "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop/gparted.desktop" || exit 1
+	echo "GParted.desktop copied to livecd image."
+
 	# Adding Xfer command for build pacman.conf
 	cp /usr/share/manjaro-tools/pacman-default.conf "${PROFILEDIR}/${COMMUNITY_PROFILE}/pacman-default.conf" || exit 1
 	cp /usr/share/manjaro-tools/pacman-multilib.conf "${PROFILEDIR}/${COMMUNITY_PROFILE}/pacman-multilib.conf" || exit 1

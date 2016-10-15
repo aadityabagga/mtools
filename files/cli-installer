@@ -6,6 +6,7 @@ SYSCONFDIR='/etc/manjaro-tools'
 
 [[ -r ${LIBDIR}/util.sh ]] && source ${LIBDIR}/util.sh
 
+load_profile_config "${SYSCONFDIR}/cli-installer.conf"
 load_profile_config "${DATADIR}/profile.conf"
 
 [[ -r ${LIBDIR}/util-live.sh ]] && source ${LIBDIR}/util-live.sh

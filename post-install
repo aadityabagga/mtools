@@ -1,17 +1,6 @@
 # post installation tasks
 
 post_install () {
-	# Copying gparted.desktop
-	install -Dm 755 /usr/share/applications/gparted.desktop "$WORKDIR/$PROFILE/$ARCH/live-image/home/manjaro/Desktop/gparted.desktop" || exit 1
-	sed 's|/usr/bin/gparted_polkit %f|gksudo gparted|g' -i "$WORKDIR/$PROFILE/$ARCH/live-image/home/manjaro/Desktop/gparted.desktop" || exit 1
-	echo "GParted.desktop copied to livecd image."
-
-	# Copying cli-installer.desktop and beginner's guide
-	cp -p "${TOOLSDIR}/files/installer-launcher-cli.desktop" "$WORKDIR/$PROFILE/$ARCH/live-image/home/manjaro/Desktop/"
-	cp -p "${TOOLSDIR}/files/calamares.desktop" "$WORKDIR/$PROFILE/$ARCH/live-image/home/manjaro/Desktop/"
-	cp -p "${TOOLSDIR}/files/Beginner_User_Guide.pdf" "$WORKDIR/$PROFILE/$ARCH/live-image/home/manjaro/Desktop/"
-	echo "cli-installer.desktop and Beginner_User_Guide.desktop copied to livecd."
-
 	# Disabling automatic swap partition mounting in livecd
 	#sed 's|swapon ${swapdev}|#swapon ${swapdev}|' -i "$WORKDIR/$PROFILE/$ARCH/live-image/opt/livecd/util-livecd.sh" || exit 1
 	sed 's|swapon ${swapdev}|echo swap ${swapdev}|' -i "$WORKDIR/$PROFILE/$ARCH/live-image/usr/lib/manjaro-tools/util-live.sh" || exit 1
@@ -31,7 +20,18 @@ post_install () {
 intel-ucode' -i "${PROFILEDIR}/shared/Packages-Root" || exit 1
 	echo "shared/Packages-Root reverted."
 
+	# Revert Packages-Mhwd file
+	sed '/libva-vdpau-driver/ a\
+opencl-mesa' -i "${PROFILEDIR}/shared/Packages-Mhwd" || exit 1
+	echo "shared/Packages-Mhwd reverted."
+
 	# Reverting pacman.conf
 	rm "${PROFILEDIR}/${COMMUNITY_PROFILE}/pacman-default.conf" "${PROFILEDIR}/${COMMUNITY_PROFILE}/pacman-multilib.conf" || exit 1
 	echo "pacman.conf removed."
+
+	# Removing extra desktop files
+	if [ -d "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop" ]; then
+		rm -r "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop" || exit 1
+		echo "Extra desktop files removed from live-overlay"
+	fi
 }
