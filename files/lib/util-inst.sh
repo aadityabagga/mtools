@@ -265,8 +265,9 @@ hd_config(){
 	cp -a /etc/pacman.d/gnupg ${DESTDIR}/etc/pacman.d/
 
 	# Install drivers
+	REPO_PATH='/opt'
 
-	if [ -e "${REPO_PATH}/pacman-gfx.conf" ] ; then
+	if [ -e "${REPO_PATH}/pacman-mhwd.conf" ] ; then
 		DIALOG --infobox "${_installvideodriver}"  6 40
 
 		mkdir -p ${DESTDIR}${REPO_PATH}
@@ -276,21 +277,21 @@ hd_config(){
 		# Install xf86-video driver
 		if  [ "${USENONFREE}" == "yes" ] || [ "${USENONFREE}" == "true" ]; then
 			if  [ "${VIDEO}" == "vesa" ]; then
-				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/pacman-gfx.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
 			else
-				chroot ${DESTDIR} mhwd --auto pci nonfree 0300 --pmconfig "${REPO_PATH}/pacman-gfx.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --auto pci nonfree 0300 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
 			fi
 		else
 			if  [ "${VIDEO}" == "vesa" ]; then
-				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/pacman-gfx.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
 			else
-				chroot ${DESTDIR} mhwd --auto pci free 0300 --pmconfig "${REPO_PATH}/pacman-gfx.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --auto pci free 0300 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
 			fi
 		fi
 
 		# Install network drivers
-		chroot ${DESTDIR} mhwd --auto pci free 0200 --pmconfig "${REPO_PATH}/pacman-gfx.conf" &>/dev/null
-		chroot ${DESTDIR} mhwd --auto pci free 0280 --pmconfig "${REPO_PATH}/pacman-gfx.conf" &>/dev/null
+		chroot ${DESTDIR} mhwd --auto pci free 0200 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
+		chroot ${DESTDIR} mhwd --auto pci free 0280 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
 
 		umount ${DESTDIR}${REPO_PATH}
 		rmdir ${DESTDIR}${REPO_PATH}
