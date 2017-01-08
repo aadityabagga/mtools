@@ -7,13 +7,13 @@ SYSCONFDIR='/etc/manjaro-tools'
 [[ -r ${LIBDIR}/util.sh ]] && source ${LIBDIR}/util.sh
 
 load_profile_config "${SYSCONFDIR}/cli-installer.conf"
-load_profile_config "${DATADIR}/profile.conf"
+load_profile_config "${SYSCONFDIR}/profile.conf"
 
 [[ -r ${LIBDIR}/util-live.sh ]] && source ${LIBDIR}/util-live.sh
 [[ -r ${LIBDIR}/util-mnt.sh ]] && source ${LIBDIR}/util-mnt.sh
 [[ -r ${LIBDIR}/util-inst.sh ]] && source ${LIBDIR}/util-inst.sh
 
-VER=0.9.2
+VER=0.9.3
 # Basis settings
 TITLE="Manjaro Linux Installation Framework $VER"
 

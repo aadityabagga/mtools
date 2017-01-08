@@ -238,9 +238,7 @@ hd_config(){
 
 	DIALOG --infobox "${_setupalsa}"  6 40
 	sleep 3
-	# configure alsa
-	#set_alsa
-	configure_alsa ${DESTDIR}
+	#configure_alsa ${DESTDIR}
 
 	# configure pulse
 	chroot ${DESTDIR} pulseaudio-ctl normal
@@ -302,7 +300,7 @@ hd_config(){
 	if [[ -e /run/systemd ]]; then
 		DIALOG --infobox "${_setupsystemd}" 6 40
 		sleep 3
-		for svc in ${start_systemd[@]}; do
+		for svc in ${start_systemd[@]} ${enable_systemd[@]}; do
 			chroot ${DESTDIR} systemctl enable $svc &>/dev/null
 		done
 
@@ -313,7 +311,7 @@ hd_config(){
 	else
 		DIALOG --infobox "${_setupopenrc}" 6 40
 		sleep 3
-		for svc in ${start_openrc[@]}; do
+		for svc in ${start_openrc[@]} ${enable_openrc[@]}; do
 			chroot ${DESTDIR} rc-update add $svc default &>/dev/null
 		done
 # 		chroot ${DESTDIR} rc-update add cups default &>/dev/null
