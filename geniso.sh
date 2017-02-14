@@ -1,6 +1,6 @@
 #!/bin/bash
 # geniso.sh: generate ISO using buildiso, removing local repo from pacman.conf
-# Inspired from https://forum.manjaro.org/index.php?topic=20637.msg186815#msg186815
+# Inspired from https://classicforum.manjaro.org/index.php?topic=20637.msg186815#msg186815
 
 # Set defaults
 WORKDIR=/var/lib/manjaro-tools/buildiso
@@ -93,4 +93,8 @@ if [[ ! $QUERY = true ]]; then
 fi
 
 # Build iso
-buildiso "$@" -cz
+if [[ ! $QUERY = true ]]; then
+	buildiso "$@" -cz
+else
+	buildiso "$@"
+fi
