@@ -31,7 +31,7 @@ CLR="\e[0m"
 GREEN="\e[1;32m"
 
 # Get profile, arch and other options
-while getopts "p:a:b:r:t:cisvqh" opt
+while getopts "p:a:b:r:t:k:i:scxzvqh" opt
 do
 	case "$opt" in
 	p) PROFILE="$OPTARG";;
@@ -52,7 +52,7 @@ if [[ ! $QUERY = true ]]; then
 fi
 
 # Build the profile chroot
-if [[ $@ != *-sc* ]] && [[ ! $QUERY = true ]]; then
+if [[ $@ != *-cz* ]] && [[ ! $QUERY = true ]]; then
 	buildiso "$@" -x
 fi
 
@@ -63,7 +63,7 @@ fi
 
 # Remove extra stuff from pacman.conf
 flag=0
-for file in $WORKDIR/$PROFILE/$ARCH/{livecd,root,${PROFILE%-*}}-image/etc/pacman.conf
+for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE%-*}}-image/etc/pacman.conf
 do
 	if [[ -f $file ]] && [[ ! $QUERY = true ]]; then
 		echo "Editing $file"
@@ -76,7 +76,7 @@ fi
 
 # Change branch to stable in pacman-mirrors.conf
 flag=0
-for file in $WORKDIR/$PROFILE/$ARCH/{livecd,root,${PROFILE%-*}}-image/etc/pacman-mirrors.conf; do
+for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE%-*}}-image/etc/pacman-mirrors.conf; do
 	if [[ -f $file ]] && [[ ! $QUERY = true ]]; then
 		echo "Editing $file"
 		sed 's|Branch=.*|Branch=stable|' -i "$file" && flag=1 || exit 1
