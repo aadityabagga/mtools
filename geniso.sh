@@ -63,7 +63,7 @@ fi
 
 # Remove extra stuff from pacman.conf
 flag=0
-for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE%-*}}-image/etc/pacman.conf
+for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE}}-image/etc/pacman.conf
 do
 	if [[ -f $file ]] && [[ ! $QUERY = true ]]; then
 		echo "Editing $file"
@@ -76,10 +76,10 @@ fi
 
 # Change branch to stable in pacman-mirrors.conf
 flag=0
-for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE%-*}}-image/etc/pacman-mirrors.conf; do
+for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE}}-image/etc/pacman-mirrors.conf; do
 	if [[ -f $file ]] && [[ ! $QUERY = true ]]; then
 		echo "Editing $file"
-		sed 's|Branch=.*|Branch=stable|' -i "$file" && flag=1 || exit 1
+		sed 's|Branch.*=.*|Branch\ =\ stable|' -i "$file" && flag=1 || exit 1
 	fi
 done
 if [[ $flag -eq 1 ]]; then
