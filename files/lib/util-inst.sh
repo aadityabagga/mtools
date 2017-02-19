@@ -266,8 +266,18 @@ hd_config(){
 
 	# Install drivers
 	REPO_PATH='/opt'
+	PAC_CONF="pacman-mhwd.conf"
 
-	if [ -e "${REPO_PATH}/pacman-mhwd.conf" ] ; then
+	# Check for legacy configurations
+	if [ -d /opt/livecd ];then
+		REPO_PATH='/opt/livecd'
+		PAC_CONF="pacman-gfx.conf"
+	elif [ -d /opt/live ];then
+		REPO_PATH='/opt/live'
+		PAC_CONF="pacman-gfx.conf"
+	fi
+
+	if [ -e "${REPO_PATH}/${PAC_CONF}" ] ; then
 		DIALOG --infobox "${_installvideodriver}"  6 40
 
 		mkdir -p ${DESTDIR}${REPO_PATH}
@@ -277,21 +287,21 @@ hd_config(){
 		# Install xf86-video driver
 		if  [ "${USENONFREE}" == "yes" ] || [ "${USENONFREE}" == "true" ]; then
 			if  [ "${VIDEO}" == "vesa" ]; then
-				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/${PAC_CONF}" &>/dev/null
 			else
-				chroot ${DESTDIR} mhwd --auto pci nonfree 0300 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --auto pci nonfree 0300 --pmconfig "${REPO_PATH}/${PAC_CONF}" &>/dev/null
 			fi
 		else
 			if  [ "${VIDEO}" == "vesa" ]; then
-				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --install pci video-vesa --pmconfig "${REPO_PATH}/${PAC_CONF}" &>/dev/null
 			else
-				chroot ${DESTDIR} mhwd --auto pci free 0300 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
+				chroot ${DESTDIR} mhwd --auto pci free 0300 --pmconfig "${REPO_PATH}/${PAC_CONF}" &>/dev/null
 			fi
 		fi
 
 		# Install network drivers
-		chroot ${DESTDIR} mhwd --auto pci free 0200 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
-		chroot ${DESTDIR} mhwd --auto pci free 0280 --pmconfig "${REPO_PATH}/pacman-mhwd.conf" &>/dev/null
+		chroot ${DESTDIR} mhwd --auto pci free 0200 --pmconfig "${REPO_PATH}/${PAC_CONF}" &>/dev/null
+		chroot ${DESTDIR} mhwd --auto pci free 0280 --pmconfig "${REPO_PATH}/${PAC_CONF}" &>/dev/null
 
 		umount ${DESTDIR}${REPO_PATH}
 		rmdir ${DESTDIR}${REPO_PATH}
