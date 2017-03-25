@@ -12,7 +12,7 @@ pre_install() {
 	# Add files required in live-overlay
 	# Copying desktop files
 	mkdir -p "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel"
-	cp -pr "${TOOLSDIR}/files/Desktop" "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/" || exit 1
+	#cp -pr "${TOOLSDIR}/files/Desktop" "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/" || exit 1
 	echo "Desktop files copied to live-overlay."
 	# Copying gparted.desktop
 	install -Dm 755 /usr/share/applications/gparted.desktop "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop/gparted.desktop" || exit 1

@@ -40,7 +40,8 @@ if [[ ! $QUERY = true ]]; then
 	fi
 
 	# Call geniso with logging
-	geniso "$@" | tee -i "${LOGDIR}/${LOGNAME}"
+	# http://stackoverflow.com/questions/692000/how-do-i-write-stderr-to-a-file-while-using-tee-with-a-pipe
+	geniso "$@" > >(tee -i "${LOGDIR}/${LOGNAME}") 2> >(tee -i "${LOGDIR}/${LOGNAME}" >&2)
 else
 	geniso "$@"
 fi
