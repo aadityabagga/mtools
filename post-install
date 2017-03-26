@@ -7,10 +7,16 @@ post_install () {
 	echo "Automatic swap partition commented out."
 
 	# Copying modified setup
-	#cp "${TOOLSDIR}/files/bin/cli-installer" "$WORKDIR/$PROFILE/$ARCH/live-image/usr/bin/cli-installer" || exit 1
-	#cp "${TOOLSDIR}/files/etc/cli-installer.conf" "$WORKDIR/$PROFILE/$ARCH/live-image/etc/manjaro-tools/cli-installer.conf" || exit 1
-	#cp "${TOOLSDIR}/files/lib/util-inst.sh"  "$WORKDIR/$PROFILE/$ARCH/live-image/usr/lib/manjaro-tools/util-inst.sh" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/bin/cli-installer" "$WORKDIR/$PROFILE/$ARCH/live-image/usr/bin/cli-installer" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/bin/km" "$WORKDIR/$PROFILE/$ARCH/live-image/usr/bin/km" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/bin/lg" "$WORKDIR/$PROFILE/$ARCH/live-image/usr/bin/lg" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/etc/cli-installer.conf" "$WORKDIR/$PROFILE/$ARCH/live-image/etc/manjaro-tools/cli-installer.conf" || exit 1
 	#cp "${PROFILEDIR}/${COMMUNITY_PROFILE}/profile.conf"  "$WORKDIR/$PROFILE/$ARCH/live-image/etc/manjaro-tools/profile.conf" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/lib/util-inst.sh"  "$WORKDIR/$PROFILE/$ARCH/live-image/usr/lib/manjaro-tools/util-inst.sh" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/lib/util-mnt.sh"  "$WORKDIR/$PROFILE/$ARCH/live-image/usr/lib/manjaro-tools/util-mnt.sh" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/data/cli-installer-en.lng"  "$WORKDIR/$PROFILE/$ARCH/live-image/usr/share/manjaro-tools/cli-installer-en.lng" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/data/km-en.lng"  "$WORKDIR/$PROFILE/$ARCH/live-image/usr/share/manjaro-tools/km-en.lng" || exit 1
+	#cp "${TOOLSDIR}/files/cli-installer/data/lg-en.lng"  "$WORKDIR/$PROFILE/$ARCH/live-image/usr/share/manjaro-tools/lg-en.lng" || exit 1
 	echo "Copied modified setup."
 
 	# Changing log location in setup
