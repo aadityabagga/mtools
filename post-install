@@ -3,7 +3,7 @@
 post_install () {
 	# Disabling automatic swap partition mounting in livecd
 	#sed 's|swapon ${swapdev}|#swapon ${swapdev}|' -i "$WORKDIR/$PROFILE/$ARCH/live-image/opt/livecd/util-livecd.sh" || exit 1
-	sed 's|swapon ${swapdev}|echo swap ${swapdev}|' -i "$WORKDIR/$PROFILE/$ARCH/live-image/usr/lib/manjaro-tools/util-live.sh" || exit 1
+	sed 's|swapon ${swapdev}|echo swap ${swapdev}|' -i "$WORKDIR/$PROFILE/$ARCH/livefs/usr/lib/manjaro-tools/util-live.sh" || exit 1
 	echo "Automatic swap partition commented out."
 
 	# Copying modified setup
@@ -11,19 +11,19 @@ post_install () {
 	#cp "${TOOLSDIR}/files/etc/cli-installer.conf" "$WORKDIR/$PROFILE/$ARCH/live-image/etc/manjaro-tools/cli-installer.conf" || exit 1
 	#cp "${TOOLSDIR}/files/lib/util-inst.sh"  "$WORKDIR/$PROFILE/$ARCH/live-image/usr/lib/manjaro-tools/util-inst.sh" || exit 1
 	#cp "${PROFILEDIR}/${COMMUNITY_PROFILE}/profile.conf"  "$WORKDIR/$PROFILE/$ARCH/live-image/etc/manjaro-tools/profile.conf" || exit 1
-	echo "Copied modified setup."
+	#echo "Copied modified setup."
 
 	# Changing log location in setup
 	#sed 's|LOG="/dev/tty8"|LOG="/var/log/setup.log"|' -i "$WORKDIR/$PROFILE/$ARCH/live-image/opt/livecd/setup-0.9" || exit 1
 	#echo "Log location in setup changed."
 
 	# Revert Packages file
-	sed '/## ucode for new cpus/ a\
-intel-ucode' -i "${PROFILEDIR}/shared/Packages-Root" || exit 1
-	echo "shared/Packages-Root reverted."
+#	sed '/## ucode for new cpus/ a\
+#intel-ucode' -i "${PROFILEDIR}/shared/Packages-Root" || exit 1
+	#echo "shared/Packages-Root reverted."
 
 	# Revert Packages-Mhwd file
-	sed '/libva-vdpau-driver/ a\
+	sed '/>nonfree_multilib lib32-nvidia-utils/ a\
 opencl-mesa' -i "${PROFILEDIR}/shared/Packages-Mhwd" || exit 1
 	echo "shared/Packages-Mhwd reverted."
 
@@ -32,8 +32,8 @@ opencl-mesa' -i "${PROFILEDIR}/shared/Packages-Mhwd" || exit 1
 	echo "pacman.conf removed."
 
 	# Removing extra desktop files
-	if [ -d "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop" ]; then
-		rm -r "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop" || exit 1
-		echo "Extra desktop files removed from live-overlay"
+	if [ -d "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel/Desktop" ]; then
+		rm -r "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel/Desktop" || exit 1
+		echo "Extra desktop files removed from livefs"
 	fi
 }

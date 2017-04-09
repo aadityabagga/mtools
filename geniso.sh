@@ -7,7 +7,7 @@ WORKDIR=/var/lib/manjaro-tools/buildiso
 ARCH=$(uname -m)
 QUERY=false
 REPOS=()
-PROFILEDIR="/home/aaditya/manjaro-tools-iso-profiles"
+PROFILEDIR="/home/aaditya/iso-profiles"
 TOOLSDIR="/home/aaditya/mtools"
 
 # Source config
@@ -63,7 +63,7 @@ fi
 
 # Remove extra stuff from pacman.conf
 flag=0
-for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE}}-image/etc/pacman.conf
+for file in $WORKDIR/$PROFILE/$ARCH/{live,root,desktop}fs/etc/pacman.conf
 do
 	if [[ -f $file ]] && [[ ! $QUERY = true ]]; then
 		echo "Editing $file"
@@ -76,7 +76,7 @@ fi
 
 # Change branch to stable in pacman-mirrors.conf
 flag=0
-for file in $WORKDIR/$PROFILE/$ARCH/{live,root,${PROFILE}}-image/etc/pacman-mirrors.conf; do
+for file in $WORKDIR/$PROFILE/$ARCH/{live,root,desktop}fs/etc/pacman-mirrors.conf; do
 	if [[ -f $file ]] && [[ ! $QUERY = true ]]; then
 		echo "Editing $file"
 		sed 's|Branch.*=.*|Branch\ =\ stable|' -i "$file" && flag=1 || exit 1
