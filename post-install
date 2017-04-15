@@ -25,8 +25,8 @@ opencl-mesa' -i "${PROFILEDIR}/shared/Packages-Mhwd" || exit 1
 	echo "pacman.conf removed."
 
 	# Removing extra desktop files
-	if [ -d "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel/Desktop" ]; then
-		rm -r "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel/Desktop" || exit 1
-		echo "Extra desktop files removed from livefs"
+	if [ -d "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop" ]; then
+		rm -r "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop" || exit 1
+		echo "Extra desktop files removed from live-overlay"
 	fi
 }

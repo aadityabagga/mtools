@@ -11,13 +11,13 @@ pre_install() {
 
 	# Add files required in livefs
 	# Copying desktop files
-	mkdir -p "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel"
-	cp -pr "${TOOLSDIR}/files/Desktop" "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel/" || exit 1
-	echo "Desktop files copied to livefs."
+	mkdir -p "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel"
+	cp -pr "${TOOLSDIR}/files/Desktop" "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/" || exit 1
+	echo "Desktop files copied to live-overlay."
 	# Copying gparted.desktop
-	install -Dm 755 /usr/share/applications/gparted.desktop "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel/Desktop/gparted.desktop" || exit 1
-	sed 's|/usr/bin/gparted_polkit %f|gksudo gparted|g' -i "${PROFILEDIR}/${COMMUNITY_PROFILE}/livefs/etc/skel/Desktop/gparted.desktop" || exit 1
-	echo "GParted.desktop copied to livecd image."
+	install -Dm 755 /usr/share/applications/gparted.desktop "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop/gparted.desktop" || exit 1
+	sed 's|/usr/bin/gparted_polkit %f|gksudo gparted|g' -i "${PROFILEDIR}/${COMMUNITY_PROFILE}/live-overlay/etc/skel/Desktop/gparted.desktop" || exit 1
+	echo "GParted.desktop copied to live-overlay."
 
 	# Adding Xfer command for build pacman.conf
 	cp /usr/share/manjaro-tools/pacman-default.conf "${PROFILEDIR}/${COMMUNITY_PROFILE}/pacman-default.conf" || exit 1
